@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction fournisseur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 4px;
+            font-size: 12px;
+            width: 100%;
+        }
+        button {
+            padding: 8px;
+            font-size: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Classez vos articles dans la bonne catégorie 🎯</h2>
+    
+    <form method="POST" action="/predict">
+        <label for="nom_fournisseur">Nom fournisseur</label>
+        <input type="text" id="nom_fournisseur" name="nom_fournisseur" required>
+        
+        <label for="designation">Désignation</label>
+        <input type="text" id="designation" name="designation" required>
+        
+        <button type="submit">Prédire</button>
+    </form>
+
+    {% if prediction %}
+    <h4>
+        L'article <span style="color: blue;">{{ designation }}</span> acheté chez le fournisseur 
+        <span style="color: blue;">{{ nom_fournisseur }}</span>
+        appartient à la catégorie suivante :<br>
+    </h4>
+    <h4>
+        <span style="color: green;">{{ prediction }}</span>
+    </h4>
+    
+    {% endif %}
+</body>
+</html>

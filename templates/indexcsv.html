@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction de catégorie pour les articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 25%;
+        }
+        label {
+            margin-bottom: 40px; /* Espace entre le label et l'input */
+        }
+        input[type="file"] {
+            margin-bottom: 40px; /* Espace entre l'input et le bouton */
+            padding: 4px;
+            font-size: 12px;
+        }
+        button {
+            padding: 8px;
+            font-size: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Classez vos articles dans la bonne catégorie via un fichier CSV 📂</h2>
+    
+    <form method="POST" action="/predict_csv" enctype="multipart/form-data">
+        <label for="file">Choisissez un fichier CSV</label>
+        <input type="file" id="file" name="file" accept=".csv" required>
+        <button type="submit">Obtenir les prédictions</button>
+    </form>
+</body>
+</html>
