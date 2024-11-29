@@ -1,7 +1,3 @@
-Voici un exemple de fichier README pour ton application Flask :
-
----
-
 # Application de Prédiction de Catégories à partir d'un Fichier CSV
 
 Cette application Flask permet d'effectuer des prédictions de catégories sur un fichier CSV contenant des informations sur des fournisseurs et des désignations de produits. Le modèle de machine learning utilisé pour la prédiction a été préalablement entraîné et est chargé dans l'application.
@@ -103,7 +99,3 @@ Ngrok générera une URL publique (par exemple, `https://abcd1234.ngrok.io`), qu
 ## À propos
 
 Cette application utilise un modèle de machine learning préalablement entraîné pour catégoriser les produits en fonction de la désignation et du fournisseur. Le modèle utilise une combinaison de `TfidfVectorizer` et `LogisticRegression` pour effectuer des prédictions textuelles basées sur les colonnes fournies.
-
----
-
-J'espère que cela répond à ta demande pour un README complet !
