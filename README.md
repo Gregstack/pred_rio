@@ -1,101 +1,109 @@
-# Application de Prédiction de Catégories à partir d'un Fichier CSV
 
-Cette application Flask permet d'effectuer des prédictions de catégories sur un fichier CSV contenant des informations sur des fournisseurs et des désignations de produits. Le modèle de machine learning utilisé pour la prédiction a été préalablement entraîné et est chargé dans l'application.
+# Application Flask de Prédiction de Catégorie
+
+Cette application Flask permet de prédire des catégories pour des produits en fonction de leur description, à partir d'un fichier CSV. L'application utilise un modèle de machine learning (`modele_ml.pkl`) et un vecteur TF-IDF (`vectorizer.pkl`) pour effectuer les prédictions.
 
 ## Prérequis
 
-Avant de commencer, assurez-vous d'avoir installé les dépendances suivantes :
-
-- Flask
-- pandas
-- scikit-learn
-
-Vous pouvez installer ces dépendances avec la commande :
+Avant de commencer, assurez-vous que vous avez installé les dépendances nécessaires dans votre environnement virtuel. Vous pouvez le faire avec `pip` :
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Fonctionnement de l'application
+Le fichier `requirements.txt` doit contenir les bibliothèques suivantes :
 
-1. L'utilisateur télécharge un fichier CSV contenant les colonnes `Nom fournisseur` et `Designation`.
-2. Le modèle de machine learning, préalablement formé avec un `TfidfVectorizer` et un `LogisticRegression`, effectue des prédictions sur chaque ligne du fichier.
-3. Les résultats de prédiction sont ajoutés dans une nouvelle colonne appelée `Prédiction catégorie` et un nouveau fichier CSV avec ces prédictions est généré.
-4. Le fichier CSV résultant est disponible en téléchargement pour l'utilisateur.
-
-### Colonnes attendues dans le fichier CSV
-Le fichier CSV d'entrée doit contenir les colonnes suivantes :
-
-- `Nom fournisseur` : Le nom du fournisseur.
-- `Designation` : La désignation du produit.
-
-Exemple de fichier CSV :
-
-| Nom fournisseur | Designation      |
-|-----------------|------------------|
-| Fournisseur A   | Vis M8           |
-| Fournisseur B   | Écrou M10        |
-
-### Résultat attendu
-Après avoir effectué les prédictions, le fichier CSV de sortie contiendra les colonnes suivantes :
-
-- `Nom fournisseur`
-- `Designation`
-- `Prédiction catégorie` : La catégorie prédite par le modèle pour chaque ligne.
-
-Exemple de fichier CSV de sortie :
-
-| Nom fournisseur | Designation      | Prédiction catégorie |
-|-----------------|------------------|----------------------|
-| Fournisseur A   | Vis M8           | Catégorie 1          |
-| Fournisseur B   | Écrou M10        | Catégorie 2          |
-
-## Lancer l'application
-
-1. Clonez ce dépôt sur votre machine locale.
-2. Installez les dépendances avec :
-
-```bash
-pip install -r requirements.txt
+```
+Flask
+pandas
+scikit-learn
 ```
 
-3. Lancez l'application Flask avec la commande :
+## Lancer l'application localement
 
-```bash
-python app.py
-```
+1. **Lancer l'application Flask :**
 
-Cela démarrera l'application sur `http://127.0.0.1:5000/`.
+   Ouvrez un terminal dans le répertoire de votre projet et exécutez la commande suivante pour démarrer le serveur Flask :
 
-## Accès à distance avec Ngrok
+   ```bash
+   python app.py
+   ```
 
-Si vous souhaitez accéder à votre application Flask à distance, vous pouvez utiliser **Ngrok** pour exposer votre serveur local à une URL publique.
+   Par défaut, Flask s'exécutera sur le port 5000 (http://127.0.0.1:5000).
 
-1. Téléchargez et installez [Ngrok](https://ngrok.com/).
-2. Dans une nouvelle fenêtre de terminal, exécutez la commande suivante pour exposer votre application Flask en ligne :
+2. **Lancer ngrok pour exposer l'application :**
 
-```bash
-ngrok http 5000
-```
+   Ouvrez une nouvelle fenêtre de terminal et exécutez la commande suivante pour exposer votre application Flask localement via une URL publique avec ngrok :
 
-Ngrok générera une URL publique (par exemple, `https://abcd1234.ngrok.io`), que vous pourrez partager avec d'autres utilisateurs.
+   ```bash
+   ngrok http 5000
+   ```
 
----
+   Ngrok vous fournira une URL publique comme `http://abcd1234.ngrok.io`, que vous pourrez partager avec d'autres personnes pour qu'elles accèdent à votre application.
+
+## Utilisation de l'application
+
+1. **Accéder à l'application :**
+
+   Une fois l'application lancée, ouvrez votre navigateur et accédez à l'URL publique fournie par ngrok (par exemple : `http://abcd1234.ngrok.io`).
+
+2. **Télécharger un fichier CSV :**
+
+   L'interface de l'application vous permettra de télécharger un fichier CSV. Ce fichier doit contenir les colonnes suivantes :
+   - **Nom fournisseur**
+   - **Designation**
+
+   Exemple de format CSV :
+
+   ```csv
+   Nom fournisseur,Designation
+   Fournisseur A,Vis M10
+   Fournisseur B,Écrou M10
+   ```
+
+3. **Faire une prédiction :**
+
+   Après avoir téléchargé votre fichier CSV, l'application traitera les données et effectuera les prédictions en utilisant le modèle de machine learning. Un fichier CSV de sortie sera généré avec une nouvelle colonne `Prédiction catégorie`.
+
+   Exemple de sortie :
+
+   ```csv
+   Nom fournisseur,Designation,Prédiction catégorie
+   Fournisseur A,Vis M10,Catégorie 1
+   Fournisseur B,Écrou M10,Catégorie 2
+   ```
+
+4. **Télécharger le fichier de sortie :**
+
+   Une fois les prédictions effectuées, vous pourrez télécharger le fichier CSV avec les résultats.
 
 ## Structure du projet
 
 ```
-.
-├── app.py               # Fichier principal de l'application Flask
-├── modele_ml.pkl        # Modèle de machine learning préalablement entraîné
-├── vectorizer.pkl       # Fichier contenant le vectorizer TF-IDF
-├── requirements.txt     # Liste des dépendances
-└── templates/
-    └── indexcsv.html    # Page HTML pour le formulaire de téléchargement de CSV
+/mon-projet-flask
+│
+├── app.py                  # Code de l'application Flask
+├── modele_ml.pkl           # Modèle de machine learning
+├── vectorizer.pkl          # Vecteur TF-IDF
+├── templates
+│   └── indexcsv.html       # Interface utilisateur pour télécharger le CSV
+└── requirements.txt        # Liste des dépendances
 ```
 
----
+## Dépannage
 
-## À propos
+- **Erreur de fichier CSV manquant :** Assurez-vous que votre fichier CSV contient les colonnes `Nom fournisseur` et `Designation`.
+- **Modèle ou vecteur manquant :** Vérifiez que les fichiers `modele_ml.pkl` et `vectorizer.pkl` sont présents dans le répertoire du projet.
 
-Cette application utilise un modèle de machine learning préalablement entraîné pour catégoriser les produits en fonction de la désignation et du fournisseur. Le modèle utilise une combinaison de `TfidfVectorizer` et `LogisticRegression` pour effectuer des prédictions textuelles basées sur les colonnes fournies.
+## License
+
+Ce projet est sous [Licence MIT](LICENSE).
+```
+
+### Explication :
+
+1. **Prérequis :** Il inclut une section pour installer les dépendances via un fichier `requirements.txt` (si tu choisis d'en créer un).
+2. **Lancer l'application :** Les étapes sont décrites pour exécuter Flask et utiliser ngrok pour exposer l'application localement.
+3. **Utilisation :** Explique comment télécharger un fichier CSV, obtenir des prédictions, et télécharger le fichier de sortie.
+4. **Structure du projet :** Un récapitulatif de la structure des fichiers du projet pour faciliter la navigation.
+5. **Dépannage :** Quelques conseils si l'utilisateur rencontre des erreurs courantes.
